@@ -36,7 +36,8 @@
                                     <a class="btn btn-dark"
                                        href="{{url('admin/category/'.$category->id.'/edit')}}">Edit</a>
                                     {{--                                    <a class="btn btn-danger" href="{{url('admin/category/'.$category->id.'/delete')}}" onclick="return confirm(' Delete Category\n\n  Are you sure?')" data-toggle="modal" data-target="deleteModal">Delete</a>--}}
-                                    <a href="#" wire:click="deleteCategory({{$category->id}})" class="btn btn-danger btn-sm float">Delete</a></h3>
+                                    <a href="#" wire:click="deleteCategory({{$category->id}})" class="btn btn-danger btn-sm float">
+                                        <i class="mdi mdi-delete text-white"></i></a></h3>
                                 </td>
                             </tr>
 

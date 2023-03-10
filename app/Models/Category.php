@@ -26,7 +26,10 @@ class Category extends Model
     protected $attributes = [
         'status' => 0
     ];
-
+public function products()
+{
+    return $this->hasMany(Product::class,'category_id','id');
+}
     public function scopeHidden($query)
     {
         return $query->where('status', '1');

@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 @section('content')
 {{--    <div>--}}
-
 {{--        <div class="row">--}}
 {{--            <div class="col-md-12">--}}
 {{--                @if (session('message'))--}}

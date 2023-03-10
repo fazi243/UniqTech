@@ -1,14 +1,14 @@
-<div class="modal fade" id="deleteModal-{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal-{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
 
-                <h5 class="modal-title" id="deleteModalLabel">Category Delete</h5>
+                <h5 class="modal-title" id="deleteModalLabel">Product Delete</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{url('/admin/category/'.$category->id)}}" method="post" >
+            <form action="{{url('/admin/products/'.$product->id)}}" method="post" >
                 @method('delete')
                 @csrf
                 <div class="modal-body">
