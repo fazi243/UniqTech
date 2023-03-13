@@ -190,7 +190,7 @@
                                             <div class="col-md-2 my-3 float-start gallery">
                                                 <img class=" me-4 border rounded thumbnail zoom" style="width: 80px; height: 80px;"
                                                      src="{{asset('storage/product_image/'.$image->image)}}" alt="">
-                                                <a href="" style="width: 80px;" class="d-block btn btn-sm btn-outline-danger "><i class="mdi mdi-delete "></i></a>
+                                                <a href="{{url('/admin/products/'.$image->id.'/delete')}}" style="width: 80px;" class="d-block btn btn-sm btn-outline-danger "><i class="mdi mdi-delete "></i></a>
                                             </div>
                                             @endforeach
                                         @else

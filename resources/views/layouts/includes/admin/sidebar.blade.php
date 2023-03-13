@@ -47,6 +47,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{url('admin/color')}}">
+                <i class="mdi mdi-format-align-justify menu-icon"></i>
+                <span class="menu-title">Colors</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="mdi mdi-account-multiple-plus menu-icon"></i>
                 <span class="menu-title">Users</span>

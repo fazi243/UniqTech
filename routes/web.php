@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ColorController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +44,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 //        Route::delete('brand/{brand}','destroy');
 //    });
     Route::get('/brand', \App\Http\Livewire\Admin\Brand\Index::class);
+
     Route::controller(\App\Http\Controllers\ProductController::class)->group(function () {
         Route::get('products', 'index');
         Route::get('products/create2', 'create');
@@ -49,7 +52,16 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('products/{product}','show');
         Route::get('products/{product}/edit','edit');
         Route::patch('products/{product}','update');
-        Route::delete('products/{product}','destroy');
+        Route::get('products/{image}/delete','deleteImage');
+    });
+    Route::controller(\App\Http\Controllers\ColorController::class)->group(function () {
+        Route::get('color', 'index');
+        Route::get('color/create', 'create');
+        Route::post('color', 'store');
+        Route::get('color/{color}', 'show');
+        Route::get('color/{color}/edit', 'edit');
+        Route::patch('color/{color}', 'update');
+        Route::delete('color/{color}', 'destroy');
     });
 });
 
