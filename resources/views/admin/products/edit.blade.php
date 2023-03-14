@@ -46,6 +46,13 @@
                                     Images
                                 </button>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="color-tab" data-bs-toggle="tab"
+                                        data-bs-target="#color-tab-pane" type="button" role="tab"
+                                        aria-controls="color-tab-pane" aria-selected="false">
+                                    Product Colors
+                                </button>
+                            </li>
 
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -184,21 +191,90 @@
                                     <small class="text-danger">{{ $errors->first('image') }}</small>
                                 </div>
                                 <div class="row">
-
-                                        @if($product->productImages)
-                                            @foreach($product->productImages as $image)
+                                    @if($product->productImages)
+                                        @foreach($product->productImages as $image)
                                             <div class="col-md-2 my-3 float-start gallery">
-                                                <img class=" me-4 border rounded thumbnail zoom" style="width: 80px; height: 80px;"
+                                                <img class=" me-4 border rounded thumbnail zoom"
+                                                     style="width: 80px; height: 80px;"
                                                      src="{{asset('storage/product_image/'.$image->image)}}" alt="">
-                                                <a href="{{url('/admin/products/'.$image->id.'/delete')}}" style="width: 80px;" class="d-block btn btn-sm btn-outline-danger "><i class="mdi mdi-delete "></i></a>
+                                                <a href="{{url('/admin/products/'.$image->id.'/delete')}}"
+                                                   style="width: 80px;"
+                                                   class="d-block btn btn-sm btn-outline-danger "><i
+                                                        class="mdi mdi-delete "></i></a>
                                             </div>
-                                            @endforeach
-                                        @else
-                                            <h5>No Image Added</h5>
-                                        @endif
-
+                                        @endforeach
+                                    @else
+                                        <h5>No Image Added</h5>
+                                    @endif
                                 </div>
+                            </div>
+                            <div class="tab-pane fade" id="color-tab-pane" role="tabpanel"
+                                 aria-labelledby="color-tab"
+                                 tabindex="0">
+                                <div class="col-md-12 mb-3">
+                                    <label for="color" class="form-label">Select Color</label>
+                                    <div class="row ">
+                                        @forelse( $colors as $color)
+                                            <div class="col-md-3  ">
+                                                {{--                                            <div class="col-md-3 rounded border border-secondary" style="background-color:{{$color->code}};">--}}
+                                                <div class="p-2 mb-3 rounded border border-secondary">
+                                                    Color: <input type="checkbox"
+                                                                  name="colors[{{$color->id}}]" value="{{$color->id}}"
+                                                                  class="rounded border border-secondary ">{{$color->name}}
+                                                    <br>
+                                                    Quantity: <input type="number"
+                                                                     name="color_quantity[{{$color->id}}]"
+                                                                     style="width: 70px; border: 1px solid" value=""
+                                                                     class="rounded border border-secondary ">
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <div class="col-md-12">No Color Found</div>
+                                        @endforelse
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Color Name</th>
+                                            <th>Quantity</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($product->productColors as $productcolor)
+                                            <tr CLASS="product-color-tr">
+                                                <td>
+                                                    @if($productcolor->color)
+                                                        {{$productcolor->color->name}}
+                                                    @else
+                                                        Color Not Found
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="input-group mb-3" style="width: 150px ">
+                                                        <input type="text" value="{{$productcolor->color_quantity}}"
+                                                               class="productColorQuantity form-control border border-primary form-control-sm">
+                                                        <button type="button" value="{{$productcolor->id}}"
+                                                                class="updateProductColorBtn btn btn-sm btn-primary text-white">
+                                                            Update
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button type="button" value="{{$productcolor->id}}"
+                                                            class="deleteProductColorBtn btn btn-sm btn-danger text-white">
+                                                        Delete
+                                                    </button>
 
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="">
@@ -209,4 +285,25 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script !src="">
+        $(document).ready(function () {
+            $(document).on('click', '.updateProductColorBtn', function () {
+                var product_id = "{{$product->id}}";
+                var product_color_id = $(this).val();
+                var qty = $(this).closest('.product-color-tr').find('.productColorQuantity').val();
+                // alert(product_color_id);
+                if (qty <= 0) {
+                    alert('Quantity is required')
+                    return false;
+                }
+                vat data={
+                    'product_id':product_id,
+                    'product_color_id':product_color_id,
+                    'qty':qty
+                }
+            });
+        });
+    </script>
 @endsection

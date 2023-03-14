@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductFormRequest;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -22,11 +23,13 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
-        return view('admin.products.create', compact('categories', 'brands'));
+        $colors = Color::where('status', '0')->get();
+        return view('admin.products.create', compact('categories', 'brands', 'colors'));
     }
 
     public function store(ProductFormRequest $request)
     {
+
         $validatedData = $request->validated();
         $category = Category::findOrFail($validatedData['category_id']);
 
@@ -48,7 +51,7 @@ class ProductController extends Controller
         ]);
 
 //        --------------------------
-        if (request()->has('image')) {
+        if ($request->has('image')) {
             foreach ($request->file('image') as $image) {
                 $imageName = $product['name'] . '-image-' . time() . rand(1, 1000) . '.' . $image->extension();
                 $image->move(public_path('storage/product_image'), $imageName);
@@ -57,13 +60,18 @@ class ProductController extends Controller
                     'image' => $imageName
                 ]);
             }
-
-            return redirect('admin/products')->with('message', 'New Product Added Successfully');
         }
 //        -----------------------------
-
-        return 'fail';
-//        return back()->with('Success','New Images Added');
+        if ($request->colors) {
+            foreach ($request->colors as $key => $color) {
+                $product->productColors()->create([
+                    'product_id' => $product->id,
+                    'color_id' => $color,
+                    'color_quantity' => $request->color_quantity[$key] ?? 0
+                ]);
+            }
+        }
+        return redirect('admin/products')->with('message', 'New Product Added Successfully');
     }
 
     public function show(Product $product)
@@ -78,7 +86,10 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
-        return view('admin.products.edit', compact('product', 'categories', 'brands'));
+
+       $product_color = $product->productColors()->pluck('color_id')->toArray();
+        $colors = Color::whereNotIn('id',$product_color)->get();
+        return view('admin.products.edit', compact('product', 'categories', 'brands','colors'));
     }
 
     public function update(ProductFormRequest $request, int $product)

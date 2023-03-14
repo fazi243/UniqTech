@@ -59,7 +59,7 @@
 <script src={{asset('admin/js/dataTables.bootstrap4.js')}}></script>
 <script src={{asset('admin/js/dataTables.min.js')}}></script>
 <!-- End custom js for this page-->
-
+@yield('script')
 @livewireScripts
 </body>
 </html>

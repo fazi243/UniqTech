@@ -42,7 +42,14 @@
                                 <button class="nav-link" id="images-tab" data-bs-toggle="tab"
                                         data-bs-target="#images-tab-pane" type="button" role="tab"
                                         aria-controls="images-tab-pane" aria-selected="false">
-                                    Images
+                                    Product Images
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="color-tab" data-bs-toggle="tab"
+                                        data-bs-target="#color-tab-pane" type="button" role="tab"
+                                        aria-controls="color-tab-pane" aria-selected="false">
+                                    Product Colors
                                 </button>
                             </li>
 
@@ -148,7 +155,8 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="trending" class="form-label">Trending</label><br>
-                                    <select name="trending" class="form-control rounded border border-secondary @error('trending') is-invalid @enderror">
+                                    <select name="trending"
+                                            class="form-control rounded border border-secondary @error('trending') is-invalid @enderror">
                                         <option disabled>Select Trending Status</option>
                                         <option value="0">Not Trending</option>
                                         <option value="1">Trending</option>
@@ -157,7 +165,8 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="status" class="form-label">Status</label><br>
-                                    <select name="status" class="form-control rounded border border-secondary @error('status') is-invalid @enderror">
+                                    <select name="status"
+                                            class="form-control rounded border border-secondary @error('status') is-invalid @enderror">
                                         <option disabled>Select Product Status</option>
                                         <option value="0">Visible</option>
                                         <option value="1">Hidden</option>
@@ -172,6 +181,34 @@
                                     <input type="file" name="image[]" multiple accept="/image/*"
                                            class="form-control @error('image') is-invalid @enderror">
                                     <small class="text-danger">{{ $errors->first('image') }}</small>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="color-tab-pane" role="tabpanel"
+                                 aria-labelledby="color-tab"
+                                 tabindex="0">
+                                <div class="col-md-12 mb-3">
+                                    <label for="color" class="form-label">Select Color</label>
+                                    <div class="row ">
+                                        @forelse( $colors as $color)
+                                            <div class="col-md-3  ">
+                                                {{--                                            <div class="col-md-3 rounded border border-secondary" style="background-color:{{$color->code}};">--}}
+                                                <div class="p-2 mb-3 rounded border border-secondary">
+
+
+                                                    Color: <input type="checkbox"
+                                                                  name="colors[{{$color->id}}]" value="{{$color->id}}"
+                                                                  class="rounded border border-secondary ">{{$color->name}}
+                                                    <br>
+                                                    Quantity: <input type="number"
+                                                                     name="color_quantity[{{$color->id}}]"
+                                                                     style="width: 70px; border: 1px solid" value=""
+                                                                     class="rounded border border-secondary ">
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <div class="col-md-12">No Color Found</div>
+                                        @endforelse
+                                    </div>
                                 </div>
                             </div>
                         </div>
