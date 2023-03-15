@@ -9,7 +9,7 @@
             @endif
             <div class="card">
                 <div class="card-header">
-                    <h3>Category<a href="{{url('admin/category/create')}}" class="btn btn-primary text-white btn-sm float-end">Add Category</a></h3>
+                    <h3>Category<a href="{{url('admin/category/create1')}}" class="btn btn-primary text-white btn-sm float-end">Add Category</a></h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped">

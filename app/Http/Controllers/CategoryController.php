@@ -39,7 +39,7 @@ class CategoryController extends Controller
     }
     public function update(CategoryFormRequest $request, Category $category)
     {
-        if ($category->image)
+        if ($request->hasFile('image'))
         {
             unlink(public_path('storage/'.$category->image));
         }

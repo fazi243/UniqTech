@@ -22,7 +22,7 @@
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{url('admin/category')}}">View Categories</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/category/create')}}">Create Category</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{url('admin/category/create1')}}">Create Category</a></li>
 
                 </ul>
             </div>
@@ -69,7 +69,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">
+            <a class="nav-link" href="{{url('admin/sliders')}}">
                 <i class="mdi mdi-view-carousel menu-icon"></i>
                 <span class="menu-title">Home Slider</span>
             </a>

@@ -30,7 +30,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
     Route::controller(CategoryController::class)->group(function () {
         Route::get('category', 'index');
-        Route::get('category/create', 'create');
+        Route::get('category/create1', 'create');
         Route::post('category', 'store');
         Route::get('category/{category}', 'show');
         Route::get('category/{category}/edit', 'edit');
@@ -53,6 +53,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('products/{product}/edit','edit');
         Route::patch('products/{product}','update');
         Route::get('products/{image}/delete','deleteImage');
+        Route::post('product-color/{product_color_id}','productColorQuantity');
+        Route::get('product-color/{product_color_id}/delete','deleteProductColor');
     });
     Route::controller(\App\Http\Controllers\ColorController::class)->group(function () {
         Route::get('color', 'index');
@@ -62,6 +64,15 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('color/{color}/edit', 'edit');
         Route::patch('color/{color}', 'update');
         Route::delete('color/{color}', 'destroy');
+    });
+    Route::controller(\App\Http\Controllers\SliderController::class)->group(function () {
+        Route::get('sliders','index');
+        Route::get('sliders/create3','create');
+        Route::post('sliders', 'store');
+        Route::get('sliders/{slider}','show');
+        Route::get('sliders/{slider}/edit','edit');
+        Route::patch('sliders/{slider}','update');
+        Route::delete('sliders/{slider}','destroy');
     });
 });
 

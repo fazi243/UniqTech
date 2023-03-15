@@ -289,6 +289,11 @@
 @section('script')
     <script !src="">
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $(document).on('click', '.updateProductColorBtn', function () {
                 var product_id = "{{$product->id}}";
                 var product_color_id = $(this).val();
@@ -298,12 +303,32 @@
                     alert('Quantity is required')
                     return false;
                 }
-                vat data={
+                var data={
                     'product_id':product_id,
-                    'product_color_id':product_color_id,
                     'qty':qty
                 }
+                $.ajax({
+                   type:"POST",
+                    url:"/admin/product-color/"+product_color_id,
+                    data:data,
+                    success: function (response) {
+                        alert(response.message)
+                    }
+                });
+            });
+            $(document).on('click', '.deleteProductColorBtn', function () {
+                var product_color_id = $(this).val();
+                var thisClick=$(this);
+                $.ajax({
+                    type:"GET",
+                    url:"/admin/product-color/"+product_color_id+"/delete",
+                    success: function (response) {
+                        thisClick.closest('.product-color-tr').remove();
+                        alert(response.message)
+                    }
+                });
             });
         });
+
     </script>
 @endsection
