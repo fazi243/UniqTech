@@ -27,7 +27,7 @@
                 </div>
                 <div class="row mt-4 border-bottom border-secondary">
                     <div class="col-sm-3"><h4 class="font-weight-bold">Brand:</h4></div>
-                    <div class="col-sm">{{$brandname->name}}</div>
+                    <div class="col-sm">{{$product->brandinfo->name}}</div>
                 </div>
                 <div class="row mt-4 border-bottom border-secondary">
                     <div class="col-sm-3"><h4 class="font-weight-bold">Slug:</h4></div>

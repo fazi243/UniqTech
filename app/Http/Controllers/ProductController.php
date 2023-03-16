@@ -77,10 +77,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-
-        $brandname = Brand::findOrFail($product->brand);
-
-        return view('admin.products.show', compact('product', 'brandname'));
+        return view('admin.products.show', compact('product', ));
     }
 
     public function edit(Product $product)

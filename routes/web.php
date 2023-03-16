@@ -5,7 +5,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ColorController;
-
+use App\Http\Controllers\Frontend\FrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +18,16 @@ use App\Http\Controllers\ColorController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
+
+Route::get('/',[\App\Http\Controllers\Frontend\FrontendController::class,'index']);
+Route::get('/collections',[FrontendController::class,'categories']);
+Route::get('/collections/{category_slug}',[FrontendController::class,'products']);
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
@@ -52,6 +57,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('products/{product}','show');
         Route::get('products/{product}/edit','edit');
         Route::patch('products/{product}','update');
+        Route::delete('products/{product}','destroy');
         Route::get('products/{image}/delete','deleteImage');
         Route::post('product-color/{product_color_id}','productColorQuantity');
         Route::get('product-color/{product_color_id}/delete','deleteProductColor');

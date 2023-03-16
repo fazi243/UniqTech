@@ -69,7 +69,7 @@ class CategoryController extends Controller
                 'image'=>request()->file('image')->store('category','public'),
                 'slug'=>Str::slug($category->slug)
             ]);
-            $image=Image::make(public_path('storage/'.$category->image))->resize(150,150);
+            $image=Image::make(public_path('storage/'.$category->image));
             $image->save();
         }
     }
