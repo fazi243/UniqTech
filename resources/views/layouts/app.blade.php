@@ -8,7 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-
+    <meta name="description" content="@yield('meta_description')">
+    <meta name="keyword" content="@yield('meta_keyword')">
+    <meta name="author" content="UniqTech">
     <!-- Fonts -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 

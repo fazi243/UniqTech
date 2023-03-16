@@ -8,6 +8,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{url('/')}}">
+                <i class="mdi mdi-open-in-app menu-icon"></i>
+                <span class="menu-title">Frontend Home</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="pages/forms/basic_elements.html">
                 <i class="mdi mdi-sale menu-icon"></i>
                 <span class="menu-title">Sales</span>
