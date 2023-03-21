@@ -11,6 +11,17 @@
             <form wire:submit.prevent="storeBrand()">
                 <div class="modal-body">
                     <div class="col-md-6 mb-3">
+                        <label for="" class="form-label">Category</label>
+                        <select wire:model.defer="category_id" name="category_id"
+                                class="form-control rounded border border-secondary @error('category_id') is-invalid @enderror">
+                            <option >--Select Category--</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                        <small class="text-danger">{{ $errors->first('category_id') }}</small>
+                    </div>
+                    <div class="col-md-6 mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" wire:model.defer="name" name="name"  class="form-control rounded border border-secondary">
                         <small class="text-danger">{{ $errors->first('name') }}</small>

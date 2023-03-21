@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Brand;
 
 use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,7 +11,7 @@ class Index extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $brand,$name,$slug,$status;
+    public $brand,$name,$slug,$status,$category_id;
 
     public function deleteBrand($brand)
     {
@@ -35,7 +36,8 @@ class Index extends Component
         return [
             'name'=>'required|string',
             'slug'=>'required|string',
-            'status'=>'nullable'
+            'status'=>'nullable',
+            'category_id'=>'required|integer'
         ];
     }
     public function resetInput()
@@ -44,6 +46,7 @@ class Index extends Component
         $this->slug=NULL;
         $this->status=NULL;
         $this->brand=NULL;
+        $this->category_id=NULL;
     }
 //    --------------------------------------------------------------------------------------
     public function showAddModal()
@@ -58,6 +61,7 @@ class Index extends Component
             'name'=>$this->name,
             'slug'=>Str::slug($this->slug),
             'status'=>$this->status==true?'1':'0',
+            'category_id'=>$this->category_id
         ]);
         session()->flash('message','Brand Added Successfully');
         $this->dispatchBrowserEvent('add-modal');
@@ -77,6 +81,7 @@ class Index extends Component
         $this->name=$brand->name;
         $this->slug=$brand->slug;
         $this->status=$brand->status;
+        $this->category_id=$brand->category_id;
 //        $this->dispatchBrowserEvent('update-modal');
 
 
@@ -88,6 +93,7 @@ class Index extends Component
             'name'=>$this->name,
             'slug'=>Str::slug($this->slug),
             'status'=>$this->status==true?'1':'0',
+            'category_id'=>$this->category_id
         ]);
         session()->flash('message','Brand Updated Successfully');
         $this->dispatchBrowserEvent('update-modal');
@@ -101,9 +107,10 @@ class Index extends Component
 //-------------------------------------------------------------------------------------------------
     public function render()
     {
+        $categories= Category::where('status','0')->get();
         $emptyBrand=new Brand();
         $brands=Brand::orderBy('id','DESC')->paginate(10);
-        return view('livewire.admin.brand.index',['brands' => $brands,'emptyBrand'=>$emptyBrand])->extends('layouts.admin')->section('content');
+        return view('livewire.admin.brand.index',['brands' => $brands,'emptyBrand'=>$emptyBrand, 'categories'=>$categories])->extends('layouts.admin')->section('content');
     }
 
 
